@@ -1,0 +1,74 @@
+#include "overhead.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+searchNode * createNode( char * state, int cost, int openIndex) {
+    searchNode * newNode = malloc(sizeof(searchNode));
+    if( newNode == NULL ) {
+        printf("failed to create node");
+        return NULL;
+    }
+    newNode->state = state;
+    newNode->cost = cost;
+    newNode->nextNode = NULL;
+    newNode->open = openIndex;
+
+    return newNode;
+}
+
+searchNode * createInitialState( char * filename ) {
+    searchNode * node = malloc(sizeof(searchNode));
+    if(!node) {
+        return NULL;
+    }
+
+    printf("%s \n", filename);
+    FILE * f = fopen(filename, "r");
+    if( !f ) {
+        printf("Failed to find file with that name or path");
+        exit(1);
+    }
+
+    char *stateString = malloc(sizeof(char) * 9);
+    int index = 0;
+    char character = fgetc(f);
+    while( character != EOF ) {
+        if( character != ' ' && character != '\n') {
+            stateString[index] = character;
+            if(character == '_') {
+                node->open = index;
+            }
+            index++;
+        }
+        character = fgetc(f);
+    }
+
+    node->state = stateString;
+    node->nextNode = NULL;
+    node->cost = 0;
+}
+
+/**
+ * @brief 
+ * 
+ * @param prev 
+ * @param hueristicCost 
+ * @return * Shift* 
+ */
+searchNode * moveRight( searchNode * prev, int hueristicCost ) {
+    char * newState = malloc(sizeof(char) * 9);
+    newState = strcpy( newState, prev->state);
+
+    if( prev->open == 0 || prev->open == 3 || prev->open == 6) {
+        return NULL;
+    }
+
+    newState[prev->open] = newState[prev->open-1];
+    newState[prev->open -1] = '_';
+
+    int cost = prev->cost + 1 + hueristicCost;
+
+    createNode(newState, cost, prev->open-1);
+
+}
