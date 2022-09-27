@@ -9,5 +9,11 @@ int main(int argc, char ** argv) {
     }
     searchNode * initial = createInitialState(argv[1]);
 
-    printf("%s", initial->state);
+    printf("%s\n", initial->state);
+
+    searchNode * hi = moveDown( initial, 0);
+
+    if( hi != NULL) {
+        printf("%s", hi->state);
+    }
 }

@@ -69,6 +69,54 @@ searchNode * moveRight( searchNode * prev, int hueristicCost ) {
 
     int cost = prev->cost + 1 + hueristicCost;
 
-    createNode(newState, cost, prev->open-1);
+    return createNode(newState, cost, prev->open-1);
 
+}
+
+searchNode * moveLeft( searchNode * prev, int hueristicCost) {
+    char * newState = malloc(sizeof(char) * 9);
+    newState = strcpy( newState, prev->state);
+
+    if( prev->open == 1 || prev->open == 5 || prev->open == 8) {
+        return NULL;
+    }
+
+    newState[prev->open] = newState[prev->open+1];
+    newState[prev->open + 1] = '_';
+
+    int cost = prev->cost + 1 + hueristicCost;
+
+    return createNode(newState, cost, prev->open-1);
+}
+
+searchNode * moveUp( searchNode * prev, int hueristicCost) {
+    char * newState = malloc(sizeof(char) * 9);
+    newState = strcpy( newState, prev->state);
+
+    if( prev->open == 6 || prev->open == 7 || prev->open == 8) {
+        return NULL;
+    }
+
+    newState[prev->open] = newState[prev->open+3];
+    newState[prev->open + 3] = '_';
+
+    int cost = prev->cost + 1 + hueristicCost;
+
+    return createNode(newState, cost, prev->open-1);
+}
+
+searchNode * moveDown( searchNode * prev, int hueristicCost) {
+    char * newState = malloc(sizeof(char) * 9);
+    newState = strcpy( newState, prev->state);
+
+    if( prev->open == 0 || prev->open == 1 || prev->open == 2) {
+        return NULL;
+    }
+
+    newState[prev->open] = newState[prev->open-3];
+    newState[prev->open - 3] = '_';
+
+    int cost = prev->cost + 1 + hueristicCost;
+
+    return createNode(newState, cost, prev->open-1);
 }
