@@ -4,9 +4,10 @@
 #include <string.h>
 
 searchNode * createNode( char * state, int cost, int openIndex) {
+    printf("creating node \n");
     searchNode * newNode = malloc(sizeof(searchNode));
     if( newNode == NULL ) {
-        printf("failed to create node");
+        printf("failed to create node \n");
         return NULL;
     }
     newNode->state = state;
@@ -26,14 +27,14 @@ searchNode * createInitialState( char * filename ) {
     printf("%s \n", filename);
     FILE * f = fopen(filename, "r");
     if( !f ) {
-        printf("Failed to find file with that name or path");
+        printf("Failed to find file with that name or path\n");
         exit(1);
     }
 
-    char *stateString = malloc(sizeof(char) * 9);
+    char *stateString = malloc(sizeof(char) * 10);
     int index = 0;
     char character = fgetc(f);
-    while( character != EOF ) {
+    while( character != EOF && index < 9) {
         if( character != ' ' && character != '\n') {
             stateString[index] = character;
             if(character == '_') {
@@ -43,6 +44,8 @@ searchNode * createInitialState( char * filename ) {
         }
         character = fgetc(f);
     }
+
+    stateString[9] = '\0';
 
     node->state = stateString;
     node->nextNode = NULL;
@@ -57,7 +60,7 @@ searchNode * createInitialState( char * filename ) {
  * @return * Shift* 
  */
 searchNode * moveRight( searchNode * prev, int hueristicCost ) {
-    char * newState = malloc(sizeof(char) * 9);
+    char * newState = malloc(sizeof(char) * 10);
     newState = strcpy( newState, prev->state);
 
     if( prev->open == 0 || prev->open == 3 || prev->open == 6) {
@@ -74,10 +77,10 @@ searchNode * moveRight( searchNode * prev, int hueristicCost ) {
 }
 
 searchNode * moveLeft( searchNode * prev, int hueristicCost) {
-    char * newState = malloc(sizeof(char) * 9);
+    char * newState = malloc(sizeof(char) * 10);
     newState = strcpy( newState, prev->state);
 
-    if( prev->open == 1 || prev->open == 5 || prev->open == 8) {
+    if( prev->open == 2 || prev->open == 5 || prev->open == 8) {
         return NULL;
     }
 
@@ -86,11 +89,11 @@ searchNode * moveLeft( searchNode * prev, int hueristicCost) {
 
     int cost = prev->cost + 1 + hueristicCost;
 
-    return createNode(newState, cost, prev->open-1);
+    return createNode(newState, cost, prev->open+1);
 }
 
 searchNode * moveUp( searchNode * prev, int hueristicCost) {
-    char * newState = malloc(sizeof(char) * 9);
+    char * newState = malloc(sizeof(char) * 10);
     newState = strcpy( newState, prev->state);
 
     if( prev->open == 6 || prev->open == 7 || prev->open == 8) {
@@ -106,7 +109,7 @@ searchNode * moveUp( searchNode * prev, int hueristicCost) {
 }
 
 searchNode * moveDown( searchNode * prev, int hueristicCost) {
-    char * newState = malloc(sizeof(char) * 9);
+    char * newState = malloc(sizeof(char) * 10);
     newState = strcpy( newState, prev->state);
 
     if( prev->open == 0 || prev->open == 1 || prev->open == 2) {

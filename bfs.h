@@ -4,7 +4,7 @@
 
 #include "overhead.h"
 
-searchNode * breadthFirstSearch( searchData * initial);
+searchNode * breadthFirstSearch( searchData *);
 
 char addToBreadthFringe(searchData *, searchNode *);
 

@@ -1,4 +1,5 @@
 #include "overhead.h"
+#include "bfs.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -9,11 +10,13 @@ int main(int argc, char ** argv) {
     }
     searchNode * initial = createInitialState(argv[1]);
 
+    searchData * searchOverhead = malloc(sizeof(searchData));
+
+    searchOverhead->fringe = initial;
+
     printf("%s\n", initial->state);
 
-    searchNode * hi = moveDown( initial, 0);
+    searchNode * hi = breadthFirstSearch(searchOverhead);
 
-    if( hi != NULL) {
-        printf("%s", hi->state);
-    }
+    printf("%s", hi->state);
 }
