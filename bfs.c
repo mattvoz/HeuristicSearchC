@@ -37,7 +37,6 @@ searchNode * breadthPop( searchData * data ) {
 searchNode * breadthFirstSearch( searchData * initial ) {
     int index = 0;
     while( initial->fringe != NULL) {
-        sleep(10);
         printf("round %d", index);
         searchNode * current = breadthPop(initial);
 

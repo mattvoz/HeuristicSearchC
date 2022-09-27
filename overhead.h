@@ -36,4 +36,6 @@ searchNode* moveDown(searchNode *, int );
 searchNode* moveRight(searchNode *, int );
 searchNode* moveLeft(searchNode *, int );
 
+int isSolvable( char * );
+
 #endif

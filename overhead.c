@@ -123,3 +123,17 @@ searchNode * moveDown( searchNode * prev, int hueristicCost) {
 
     return createNode(newState, cost, prev->open-1);
 }
+
+int isSolvable( char * string) {
+    int inversions = 0;
+    for(int i = 0; i < 10 ; i++) {
+        for(int j=i; j < 10; j++ ) {
+            if( string[i] > string[j]) {
+                inversions++;
+            }
+        }
+    }
+
+    return inversions % 2;
+
+}
