@@ -126,10 +126,10 @@ searchNode * moveDown( searchNode * prev, int hueristicCost) {
 
 int isSolvable( char * string) {
     int inversions = 0;
-    for(int i = 0; i < 10 ; i++) {
-        for(int j=i; j < 10; j++ ) {
-            if( string[i] > string[j]) {
-                inversions++;
+    for(int i = 0; i < 9 ; i++) {
+        for(int j=i; j < 9; j++ ) {
+            if( string[i] > string[j] && string[i] != '_') {
+                inversions += 1;
             }
         }
     }
