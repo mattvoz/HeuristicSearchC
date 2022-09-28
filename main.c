@@ -21,10 +21,12 @@ int main(int argc, char ** argv) {
 
     searchOverhead->fringe = initial;
     searchOverhead->closed = NULL;
-
-    printf("%s\n", initial->state);
+    searchOverhead->closedSize = 0;
+    searchOverhead->fringeSize = 0;
 
     searchNode * hi = breadthFirstSearch(searchOverhead);
+
+    printf("final closed size %d\n final fringe size %d\n", searchOverhead->closedSize, searchOverhead->fringeSize);
 
     printf("%s\n", hi->state);
 }

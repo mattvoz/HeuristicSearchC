@@ -13,7 +13,8 @@ typedef struct searchNode {
 } searchNode;
 
 typedef struct closedNode{
-    searchNode * node;
+    char * state;
+    int cost;
     struct closedNode * left;
     struct closedNode * right;
 } closedNode;
@@ -32,6 +33,10 @@ char inClosed( searchNode *, searchData * );
 char addToClosed( searchNode *, searchData *);
 
 searchNode * popFringe();
+
+char goalTest( searchNode *);
+
+char inFringe( searchNode* , searchData *);
 
 char compareNodesNoCost(searchNode * one, searchNode* two);
 

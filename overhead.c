@@ -143,11 +143,10 @@ char inClosed( searchNode * node, searchData * data ) {
     }
     closedNode * currentNode = data->closed;
     while(currentNode != NULL) {
-        int value = strcmp(node->state, currentNode->node->state);
+        int value = strcmp(node->state, currentNode->state);
         if(value == 0) {
             return 1;
-        }
-        if(value < 0) {
+        } else if(value < 0) {
             currentNode = currentNode->left;
         } else {
             currentNode = currentNode->right;
@@ -157,36 +156,61 @@ char inClosed( searchNode * node, searchData * data ) {
 }
 
 char addToClosed( searchNode * node,  searchData * data) {
-    printf("adding to closed\n");
     closedNode* newNode = malloc(sizeof(closedNode));
        if(!newNode) {
-            printf("failed to allocate closed node\n");
             return 0;
        }
-       newNode->node = node;
+       newNode->state = node->state;
        newNode->left = NULL;
        newNode->right = NULL;
 
     if( data->closed == NULL) {
+        data->closedSize += 1;
        data->closed = newNode;
        return 1;
     }
 
     closedNode * currentNode = data->closed;
     while(currentNode != NULL) {
-        int value = strcmp(node->state, currentNode->node->state);
+        int value = strcmp(node->state, currentNode->state);
         if( value < 0) {
             if(currentNode->left == NULL){
                 currentNode->left = newNode;
+                data->closedSize += 1;
                 return 1;
             }
             currentNode = currentNode->left;
-        } else {
+        } else if( value > 0) {
             if (currentNode->right == NULL) {
                 currentNode->right = newNode;
+                data->closedSize += 1;
                 return 1;
             }
             currentNode = currentNode->right;
+        } else {
+            exit(1);
+            return 0;
         }
+    }
+}
+
+char goalTest(searchNode * node) {
+    if( strcmp(node->state, "12345678_") == 0) {
+        return 1;
+    }
+    return 0;
+}
+
+char inFringe(searchNode * node, searchData * data) {
+    if( data->fringe == NULL) {
+        return 0;
+    }
+    searchNode * current = data->fringe;
+
+    while(current != NULL) {
+        if(strcmp(node->state,current->state) == 0) {
+            return 1;
+        }
+        current = current->nextNode;
     }
 }
