@@ -11,7 +11,6 @@ int main(int argc, char ** argv) {
     searchNode * initial = createInitialState(argv[1]);
 
     int possible = isSolvable(initial->state);
-    printf("this puzzle is solvable if 0 %d \n", possible);
 
     if( possible == 1 ) {
         printf("puzzle is not solvable \n");
@@ -21,10 +20,11 @@ int main(int argc, char ** argv) {
     searchData * searchOverhead = malloc(sizeof(searchData));
 
     searchOverhead->fringe = initial;
+    searchOverhead->closed = NULL;
 
     printf("%s\n", initial->state);
 
     searchNode * hi = breadthFirstSearch(searchOverhead);
 
-    printf("%s", hi->state);
+    printf("%s\n", hi->state);
 }

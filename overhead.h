@@ -12,14 +12,24 @@ typedef struct searchNode {
     struct searchNode * nextNode;
 } searchNode;
 
+typedef struct closedNode{
+    searchNode * node;
+    struct closedNode * left;
+    struct closedNode * right;
+} closedNode;
+
 typedef struct searchData {
-    searchNode * closed;
+    closedNode * closed;
     searchNode * fringe;
     long startTime;
     long endTime;
     int fringeSize;
     int closedSize;
 } searchData;
+
+char inClosed( searchNode *, searchData * );
+
+char addToClosed( searchNode *, searchData *);
 
 searchNode * popFringe();
 

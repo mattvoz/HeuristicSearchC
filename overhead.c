@@ -4,7 +4,6 @@
 #include <string.h>
 
 searchNode * createNode( char * state, int cost, int openIndex) {
-    printf("creating node \n");
     searchNode * newNode = malloc(sizeof(searchNode));
     if( newNode == NULL ) {
         printf("failed to create node \n");
@@ -105,7 +104,7 @@ searchNode * moveUp( searchNode * prev, int hueristicCost) {
 
     int cost = prev->cost + 1 + hueristicCost;
 
-    return createNode(newState, cost, prev->open-1);
+    return createNode(newState, cost, prev->open+3);
 }
 
 searchNode * moveDown( searchNode * prev, int hueristicCost) {
@@ -121,7 +120,7 @@ searchNode * moveDown( searchNode * prev, int hueristicCost) {
 
     int cost = prev->cost + 1 + hueristicCost;
 
-    return createNode(newState, cost, prev->open-1);
+    return createNode(newState, cost, prev->open-3);
 }
 
 int isSolvable( char * string) {
@@ -136,4 +135,58 @@ int isSolvable( char * string) {
 
     return inversions % 2;
 
+}
+
+char inClosed( searchNode * node, searchData * data ) {
+    if( data->closed == NULL) {
+        return 0;
+    }
+    closedNode * currentNode = data->closed;
+    while(currentNode != NULL) {
+        int value = strcmp(node->state, currentNode->node->state);
+        if(value == 0) {
+            return 1;
+        }
+        if(value < 0) {
+            currentNode = currentNode->left;
+        } else {
+            currentNode = currentNode->right;
+        }
+    }
+    return 0;
+}
+
+char addToClosed( searchNode * node,  searchData * data) {
+    printf("adding to closed\n");
+    closedNode* newNode = malloc(sizeof(closedNode));
+       if(!newNode) {
+            printf("failed to allocate closed node\n");
+            return 0;
+       }
+       newNode->node = node;
+       newNode->left = NULL;
+       newNode->right = NULL;
+
+    if( data->closed == NULL) {
+       data->closed = newNode;
+       return 1;
+    }
+
+    closedNode * currentNode = data->closed;
+    while(currentNode != NULL) {
+        int value = strcmp(node->state, currentNode->node->state);
+        if( value < 0) {
+            if(currentNode->left == NULL){
+                currentNode->left = newNode;
+                return 1;
+            }
+            currentNode = currentNode->left;
+        } else {
+            if (currentNode->right == NULL) {
+                currentNode->right = newNode;
+                return 1;
+            }
+            currentNode = currentNode->right;
+        }
+    }
 }

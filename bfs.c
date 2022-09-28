@@ -6,10 +6,9 @@
 
 char addToBreadthFringe(searchData * data, searchNode * node ) {
     //TODO check if it's in closed
-    printf("adding to fringe :D\n");
     searchNode * currentNode = data->fringe;
     if( currentNode == NULL){
-        printf("fringe is empty adding first node");
+        printf("fringe is empty adding first node\n");
         data->fringe = node;
         return 1;
     }
@@ -37,10 +36,10 @@ searchNode * breadthPop( searchData * data ) {
 searchNode * breadthFirstSearch( searchData * initial ) {
     int index = 0;
     while( initial->fringe != NULL) {
-        printf("round %d", index);
+        printf("round %d \n", index);
         searchNode * current = breadthPop(initial);
 
-        printf("current state is %s", current->state);
+        printf("current state is %s \n", current->state);
 
         if(breadthPop == NULL) {
             return NULL;
@@ -56,25 +55,24 @@ searchNode * breadthFirstSearch( searchData * initial ) {
         searchNode * up = moveUp(current,0);
         searchNode * down = moveDown(current,0);
 
-        printf("%d \n", down);
-
-        if(right != NULL) {
+        if(right != NULL && inClosed( right, initial) != 1) {
             printf("right state %s\n", right->state);
-            //addToBreadthFringe(initial,right);
+            addToBreadthFringe(initial,right);
         }
-        if(left != NULL) {
+        if(left != NULL && inClosed( left, initial) != 1) {
             printf("left state %s\n", left->state);
             addToBreadthFringe(initial,left);
         }
-        if(up != NULL) {
+        if(up != NULL && inClosed( up, initial) != 1) {
             printf("up state %s\n", up->state);
             addToBreadthFringe(initial,up);
         }
-        if(down != NULL) {
+        if(down != NULL && inClosed(down, initial) != 1) {
             printf("down state %s\n", down->state);
             addToBreadthFringe(initial, down);
         }
         index ++;
+        addToClosed(current, initial);
     }
 
     return NULL;
