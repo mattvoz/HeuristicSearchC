@@ -1,5 +1,7 @@
 #include "overhead.h"
 #include "bfs.h"
+#include "dfs.h"
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -8,25 +10,49 @@ int main(int argc, char ** argv) {
         printf("please specify an input file \n");
         exit(1);
     }
-    searchNode * initial = createInitialState(argv[1]);
-
-    int possible = isSolvable(initial->state);
-
-    if( possible == 1 ) {
-        printf("puzzle is not solvable \n");
+    if( argc < 3) {
+        printf("please specify an algorithm\n");
         exit(1);
     }
 
-    searchData * searchOverhead = malloc(sizeof(searchData));
+    searchNode * initial = createInitialState(argv[1]);
 
+    int possible = isSolvable(initial->state);
+    if( possible == 1 ) {
+        printf("puzzle is not solvable \n");
+        free(initial->state);
+        free(initial);
+        exit(1);
+    }
+
+    searchNode * solution;
+
+    searchData * searchOverhead = malloc(sizeof(searchData));
     searchOverhead->fringe = initial;
     searchOverhead->closed = NULL;
     searchOverhead->closedSize = 0;
     searchOverhead->fringeSize = 0;
 
-    searchNode * hi = breadthFirstSearch(searchOverhead);
+    if(strcmp(argv[2], "BFS") == 0) {
+        solution = breadthFirstSearch(searchOverhead);
+    }
 
-    printf("final closed size %d\n final fringe size %d\n", searchOverhead->closedSize, searchOverhead->fringeSize);
+    if(strcmp(argv[2], "IDFS") == 0) {
+        int nodeCount;
+        for(int i = 1; i < 100; i++) {
+            initial = createInitialState( argv[1] );
+            solution = depthFirstSearch( initial, i, &nodeCount);
+            if(solution != NULL){
+                break;
+            }
+        }
+    }
 
-    printf("%s\n", hi->state);
+    if(solution == NULL) {
+        printf("no solution was found\n");
+        exit(1);
+    }
+    printf("final closed size %d\nfinal fringe size %d\nsolution depth %d \n", searchOverhead->closedSize, searchOverhead->fringeSize, solution->depth);
+
+    printf("%s\n", solution->state);
 }

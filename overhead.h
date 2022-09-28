@@ -8,8 +8,10 @@ typedef struct searchNode {
     char * state;
     int cost;
     int open;
+    int depth;
     char * moves;
     struct searchNode * nextNode;
+    struct searchnode * parent;
 } searchNode;
 
 typedef struct closedNode{
@@ -42,7 +44,7 @@ char compareNodesNoCost(searchNode * one, searchNode* two);
 
 char compareNodesCost(searchNode * one, searchNode * two);
 
-searchNode * createNode(char *, int, int);
+searchNode * createNode(char *, int, int, searchNode *);
 
 searchNode * createInitialState( char * );
 

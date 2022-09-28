@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "searchoverhead.h": "c"
-    }
+        "searchoverhead.h": "c",
+        "dfs.c" : "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

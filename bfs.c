@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 
-char addToBreadthFringe(searchData * data, searchNode * node ) {
+char addToBreadthFringe(searchData * data, searchNode * node) {
     //TODO check if it's in closed
     searchNode * currentNode = data->fringe;
     if( currentNode == NULL){
@@ -36,11 +36,7 @@ searchNode * breadthPop( searchData * data ) {
 }
 
 searchNode * breadthFirstSearch( searchData * initial ) {
-    int index = 0;
     while( initial->fringe != NULL) {
-        if( index > 362880) {
-            exit(1);
-        }
         searchNode * current = breadthPop(initial);
         printf("Current state %s\n", current->state);
         if(breadthPop == NULL) {
@@ -78,8 +74,6 @@ searchNode * breadthFirstSearch( searchData * initial ) {
             }
             addToBreadthFringe(initial, down);
         }
-
-        index++;
     }
 
     return NULL;

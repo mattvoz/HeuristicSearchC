@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-searchNode * createNode( char * state, int cost, int openIndex) {
+searchNode * createNode( char * state, int cost, int openIndex, searchNode * parent) {
     searchNode * newNode = malloc(sizeof(searchNode));
     if( newNode == NULL ) {
         printf("failed to create node \n");
@@ -13,6 +13,8 @@ searchNode * createNode( char * state, int cost, int openIndex) {
     newNode->cost = cost;
     newNode->nextNode = NULL;
     newNode->open = openIndex;
+    newNode->parent = parent;
+    newNode->depth = parent->depth + 1;
 
     return newNode;
 }
@@ -49,6 +51,9 @@ searchNode * createInitialState( char * filename ) {
     node->state = stateString;
     node->nextNode = NULL;
     node->cost = 0;
+    node->parent = NULL;
+    node->depth = 0;
+    return node;
 }
 
 /**
@@ -71,7 +76,7 @@ searchNode * moveRight( searchNode * prev, int hueristicCost ) {
 
     int cost = prev->cost + 1 + hueristicCost;
 
-    return createNode(newState, cost, prev->open-1);
+    return createNode(newState, cost, prev->open-1, prev);
 
 }
 
@@ -88,7 +93,7 @@ searchNode * moveLeft( searchNode * prev, int hueristicCost) {
 
     int cost = prev->cost + 1 + hueristicCost;
 
-    return createNode(newState, cost, prev->open+1);
+    return createNode(newState, cost, prev->open+1, prev);
 }
 
 searchNode * moveUp( searchNode * prev, int hueristicCost) {
@@ -104,7 +109,7 @@ searchNode * moveUp( searchNode * prev, int hueristicCost) {
 
     int cost = prev->cost + 1 + hueristicCost;
 
-    return createNode(newState, cost, prev->open+3);
+    return createNode(newState, cost, prev->open+3, prev);
 }
 
 searchNode * moveDown( searchNode * prev, int hueristicCost) {
@@ -120,7 +125,7 @@ searchNode * moveDown( searchNode * prev, int hueristicCost) {
 
     int cost = prev->cost + 1 + hueristicCost;
 
-    return createNode(newState, cost, prev->open-3);
+    return createNode(newState, cost, prev->open-3, prev);
 }
 
 int isSolvable( char * string) {
@@ -188,6 +193,7 @@ char addToClosed( searchNode * node,  searchData * data) {
             }
             currentNode = currentNode->right;
         } else {
+            printf("failed in addToClosed");
             exit(1);
             return 0;
         }
