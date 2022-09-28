@@ -38,7 +38,6 @@ searchNode * breadthPop( searchData * data ) {
 searchNode * breadthFirstSearch( searchData * initial ) {
     while( initial->fringe != NULL) {
         searchNode * current = breadthPop(initial);
-        printf("Current state %s\n", current->state);
         if(breadthPop == NULL) {
             return NULL;
         }
