@@ -216,7 +216,19 @@ char inFringe(searchNode * node, searchData * data) {
     while(current != NULL) {
         if(strcmp(node->state,current->state) == 0) {
             return 1;
-        }
+        } 
         current = current->nextNode;
     }
+}
+
+char inFringeReplace(searchNode * node, searchData * data) {
+    searchNode * currentNode = data->fringe;
+    if( currentNode == NULL){
+        return 0;
+    }
+
+    if( strcmp(node->state, currentNode->state) == 0 && node->cost < currentNode->cost) {
+        
+    }
+
 }
