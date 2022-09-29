@@ -5,6 +5,8 @@
 #include <time.h>
 
 typedef struct searchNode {
+    time_t startTime;
+    time_t endTime;
     char * state;
     int cost;
     int open;
@@ -34,11 +36,10 @@ char inClosed( searchNode *, searchData * );
 
 char addToClosed( searchNode *, searchData *);
 
-searchNode * popFringe();
-
 char goalTest( searchNode *);
 
 char inFringe( searchNode* , searchData *);
+char inFringeReplace(searchNode *, searchData *);
 
 char compareNodesNoCost(searchNode * one, searchNode* two);
 
@@ -47,6 +48,8 @@ char compareNodesCost(searchNode * one, searchNode * two);
 searchNode * createNode(char *, int, int, searchNode *);
 
 searchNode * createInitialState( char * );
+
+searchNode * fringePop( searchData * );
 
 searchNode* moveUp(searchNode *, int);
 searchNode* moveDown(searchNode *, int );

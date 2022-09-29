@@ -1,7 +1,9 @@
 #include "bfs.h"
+#include "overhead.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 
 
 char addToBreadthFringe(searchData * data, searchNode * node) {
@@ -20,25 +22,11 @@ char addToBreadthFringe(searchData * data, searchNode * node) {
     return 1;
 }
 
-searchNode * breadthPop( searchData * data ) {
-    searchNode * pop = data->fringe;
-    if( pop == NULL) {
-        return NULL;
-    }
-
-    data->fringe = pop->nextNode;
-
-    pop->nextNode = NULL;
-
-    data->fringeSize -=1;
-
-    return pop;
-}
-
 searchNode * breadthFirstSearch( searchData * initial ) {
+    initial->startTime = time(NULL);
     while( initial->fringe != NULL) {
-        searchNode * current = breadthPop(initial);
-        if(breadthPop == NULL) {
+        searchNode * current = fringePop(initial);
+        if(current == NULL) {
             return NULL;
         }
 
@@ -51,24 +39,28 @@ searchNode * breadthFirstSearch( searchData * initial ) {
 
         if(right != NULL && inClosed( right, initial) != 1 && inFringe(right, initial) != 1) {
             if(goalTest(right)) {
+                initial->endTime = time(NULL);
                 return right;
             }
             addToBreadthFringe(initial,right);
         }
         if(left != NULL && inClosed( left, initial) != 1 && inFringe(left, initial) != 1) {
             if(goalTest(left)) {
+                initial->endTime = time(NULL);
                 return left;
             }
             addToBreadthFringe(initial,left);
         }
         if(up != NULL && inClosed( up, initial) != 1 && inFringe(up, initial) != 1) {
             if(goalTest(up)) {
+                initial->endTime = time(NULL);
                 return up;
             }
             addToBreadthFringe(initial,up);
         }
         if(down != NULL && inClosed(down, initial) != 1 && inFringe(down, initial) != 1) {
             if(goalTest(down)) {
+                initial->endTime = time(NULL);
                 return down;
             }
             addToBreadthFringe(initial, down);

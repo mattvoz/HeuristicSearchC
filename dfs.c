@@ -4,7 +4,6 @@
 
 searchNode * depthFirstSearch( searchNode * currentNode, int maxDepth, int * nodeCount) {
     // safety check :)
-    printf("current max depth %d\n", maxDepth);
     if( currentNode == NULL) {
         return NULL;
     }

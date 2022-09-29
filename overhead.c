@@ -24,8 +24,6 @@ searchNode * createInitialState( char * filename ) {
     if(!node) {
         return NULL;
     }
-
-    printf("%s \n", filename);
     FILE * f = fopen(filename, "r");
     if( !f ) {
         printf("Failed to find file with that name or path\n");
@@ -53,6 +51,7 @@ searchNode * createInitialState( char * filename ) {
     node->cost = 0;
     node->parent = NULL;
     node->depth = 0;
+
     return node;
 }
 
@@ -222,13 +221,39 @@ char inFringe(searchNode * node, searchData * data) {
 }
 
 char inFringeReplace(searchNode * node, searchData * data) {
+    printf("checking fringe\n");
     searchNode * currentNode = data->fringe;
     if( currentNode == NULL){
         return 0;
     }
-
     if( strcmp(node->state, currentNode->state) == 0 && node->cost < currentNode->cost) {
-        
+        data->fringe = currentNode->nextNode;
+    }
+    searchNode * prevNode = currentNode;
+    currentNode = prevNode->nextNode;
+    while( currentNode != NULL) {
+        if( strcmp(node->state, currentNode->state) == 0 && node->cost < currentNode->cost) {
+            prevNode->nextNode = currentNode->nextNode;
+            free(currentNode->state);
+            free(currentNode);
+            return 0;
+        } else if( strcmp(node->state, currentNode->state) == 0 && node->cost > currentNode->cost) {
+            return 1;
+        }
+        prevNode = currentNode;
+        currentNode = prevNode->nextNode;
+    }
+}
+
+searchNode * fringePop( searchData * data ) {
+    searchNode * pop = data->fringe;
+    if( pop == NULL) {
+        return NULL;
     }
 
+    data->fringe = pop->nextNode;
+
+    data->fringeSize -=1;
+
+    return pop;
 }

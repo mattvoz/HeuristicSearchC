@@ -1,11 +1,12 @@
 #include "aStar.h"
 #include "overhead.h"
+#include "stdlib.h"
+#include <stdio.h>
 
-searchNode * aStar( searchData *, int (hueristic)( searchNode *)) {
+searchNode * aStar( searchData * initial, int (hueristic)( searchNode *)) {
      while( initial->fringe != NULL) {
-        searchNode * current = breadthPop(initial);
-        printf("Current state %s\n", current->state);
-        if(breadthPop == NULL) {
+        searchNode * current = fringePop(initial);
+        if(current == NULL) {
             return NULL;
         }
 
@@ -16,31 +17,19 @@ searchNode * aStar( searchData *, int (hueristic)( searchNode *)) {
         searchNode * up = moveUp(current,0);
         searchNode * down = moveDown(current,0);
 
-        if(right != NULL && inClosed( right, initial) != 1 && inFringe(right, initial) != 1) {
-            if(goalTest(right)) {
-                return right;
-            }
-            addToAStarFringe(initial,right);
+        if(right != NULL && inClosed( right, initial) != 1 && inFringeReplace(right, initial) != 1) {
+            addToAStarFringe(right,initial);
         }
-        if(left != NULL && inClosed( left, initial) != 1 && inFringe(left, initial) != 1) {
-            if(goalTest(left)) {
-                return left;
-            }
-            addToAStarFringe(initial,left);
+        if(left != NULL && inClosed( left, initial) != 1 && inFringeReplace(left, initial) != 1) {
+            addToAStarFringe(left,initial);
         }
-        if(up != NULL && inClosed( up, initial) != 1 && inFringe(up, initial) != 1) {
-            if(goalTest(up)) {
-                return up;
-            }
-            addToAStarFringe(initial,up);
+        if(up != NULL && inClosed( up, initial) != 1 && inFringeReplace(up, initial) != 1) {
+            addToAStarFringe(up,initial);
         }
-        if(down != NULL && inClosed(down, initial) != 1 && inFringe(down, initial) != 1) {
-            if(goalTest(down)) {
-                return down;
-            }
-            addToAStarFringe(initial, down);
+        if(down != NULL && inClosed(down, initial) != 1 && inFringeReplace(down, initial) != 1) {
+            addToAStarFringe(down, initial);
         }
-
+    }
 }
 
 char addToAStarFringe(searchNode * node, searchData * data) {
@@ -51,14 +40,14 @@ char addToAStarFringe(searchNode * node, searchData * data) {
         return 1;
     }
 
-    if( node->cost < currentNode->cost) {
+    if(node->cost < currentNode->cost) {
         data->fringe = node;
         node->nextNode = currentNode;
         return 1;
     }
 
     searchNode * prevNode = currentNode;
-    currentNode = prevNode->next;
+    currentNode = prevNode->nextNode;
 
     while(currentNode != NULL) {
         if( node->cost < currentNode->cost) {
@@ -68,7 +57,34 @@ char addToAStarFringe(searchNode * node, searchData * data) {
         }
         currentNode = currentNode->nextNode;
     }
-    prevNode->nextnode = node;
+    prevNode->nextNode = node;
     return 1;
+}
 
+int manhattanValue( searchNode * node) {
+    int cost = 0;
+    for(char i = 0; i < 9; i ++) {
+        char current = node->state[i];
+        if( current == '_') {
+            continue;
+        }
+        int intVal = atoi( & current);
+
+    }
+    return cost;
+}
+
+int misplacedTile( searchNode * node) {
+    int cost = 0;
+        for(char i = 0; i < 9; i++) {
+            char current = node->state[i];
+            if( current == '_') {
+              continue;
+            }
+            int intVal = atoi( &current);
+            if( intVal != i+1) {
+                cost+=1;
+            }
+    }
+    return cost;
 }

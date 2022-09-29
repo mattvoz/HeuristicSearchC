@@ -6,4 +6,8 @@ searchNode * aStar(searchData *, int (hueristic)( searchNode *));
 
 char addToAStarFringe(searchNode *, searchData *);
 
+int manhattanValue( searchNode * );
+
+int misplacedTile( searchNode * );
+
 #endif
