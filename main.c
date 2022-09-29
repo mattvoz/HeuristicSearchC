@@ -42,7 +42,7 @@ int main(int argc, char ** argv) {
 
     if(strcmp(argv[2], "IDFS") == 0) {
         int nodeCount;
-        for(int i = 1; i < 12; i++) {
+        for(int i = 1; i < 50; i++) {
             initial = createInitialState( argv[1] );
             solution = depthFirstSearch( initial, i, &nodeCount);
             if(solution != NULL){
@@ -53,7 +53,7 @@ int main(int argc, char ** argv) {
 
     if(strcmp(argv[2], "h1") == 0) {
         printf(" h1 search\n");
-        searchNode * solution = aStar( searchOverhead, &misplacedTile);
+        solution = aStar( searchOverhead, &misplacedTile);
     }
 
     if(solution == NULL) {

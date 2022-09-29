@@ -32,10 +32,10 @@ searchNode * breadthFirstSearch( searchData * initial ) {
 
         addToClosed( current, initial);
 
-        searchNode * right = moveRight(current,0);
-        searchNode * left = moveLeft(current,0);
-        searchNode * up = moveUp(current,0);
-        searchNode * down = moveDown(current,0);
+        searchNode * right = moveRight(current);
+        searchNode * left = moveLeft(current);
+        searchNode * up = moveUp(current);
+        searchNode * down = moveDown(current);
 
         if(right != NULL && inClosed( right, initial) != 1 && inFringe(right, initial) != 1) {
             if(goalTest(right)) {

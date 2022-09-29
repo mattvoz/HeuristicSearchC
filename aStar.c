@@ -6,17 +6,42 @@
 searchNode * aStar( searchData * initial, int (hueristic)( searchNode *)) {
      while( initial->fringe != NULL) {
         searchNode * current = fringePop(initial);
+        printf("current state is %s cost is %d hcost is %d\n", current->state, current->cost, current->hcost);
         if(current == NULL) {
             return NULL;
         }
 
+        printf("testing goal\n");
+        if(goalTest(current) == 1) {
+            return current;
+        }
+        printf("adding to closed\n");
+        printf("in closed %d\n", inClosed(current ,initial));
         addToClosed( current, initial);
 
-        searchNode * right = moveRight(current,0);
-        searchNode * left = moveLeft(current,0);
-        searchNode * up = moveUp(current,0);
-        searchNode * down = moveDown(current,0);
+        printf("making nodes\n");
+        searchNode * right = moveRight(current);
+        if( right != NULL) {
+            right->hcost = hueristic(right);
+        }
 
+        searchNode * left = moveLeft(current);
+        if( left != NULL) {
+            left->hcost = hueristic(left);
+        }
+
+        searchNode * up = moveUp(current);
+        if( up != NULL) {
+            up->hcost = hueristic(up);
+        }
+
+        searchNode * down = moveDown(current);
+        if(down != NULL) {
+            down->hcost = hueristic(down);
+        }
+
+        printf("nodes created\n");
+        printf("checking fringe \n");
         if(right != NULL && inClosed( right, initial) != 1 && inFringeReplace(right, initial) != 1) {
             addToAStarFringe(right,initial);
         }
@@ -29,6 +54,7 @@ searchNode * aStar( searchData * initial, int (hueristic)( searchNode *)) {
         if(down != NULL && inClosed(down, initial) != 1 && inFringeReplace(down, initial) != 1) {
             addToAStarFringe(down, initial);
         }
+        printf("finished addition\n");
     }
 }
 
@@ -40,7 +66,7 @@ char addToAStarFringe(searchNode * node, searchData * data) {
         return 1;
     }
 
-    if(node->cost < currentNode->cost) {
+    if((node->cost + node->hcost) < (currentNode->cost + currentNode->hcost)) {
         data->fringe = node;
         node->nextNode = currentNode;
         return 1;
@@ -50,7 +76,7 @@ char addToAStarFringe(searchNode * node, searchData * data) {
     currentNode = prevNode->nextNode;
 
     while(currentNode != NULL) {
-        if( node->cost < currentNode->cost) {
+        if( (node->cost + node->hcost) < (currentNode->cost + currentNode->hcost)) {
             prevNode->nextNode = node;
             node->nextNode = currentNode;
             return 1;
@@ -79,6 +105,9 @@ int misplacedTile( searchNode * node) {
         for(char i = 0; i < 9; i++) {
             char current = node->state[i];
             if( current == '_') {
+                if( i != 8) {
+                    cost += 1;
+                }
               continue;
             }
             int intVal = atoi( &current);

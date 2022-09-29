@@ -8,7 +8,9 @@ typedef struct searchNode {
     time_t startTime;
     time_t endTime;
     char * state;
+    char move;
     int cost;
+    int hcost;
     int open;
     int depth;
     char * moves;
@@ -51,10 +53,10 @@ searchNode * createInitialState( char * );
 
 searchNode * fringePop( searchData * );
 
-searchNode* moveUp(searchNode *, int);
-searchNode* moveDown(searchNode *, int );
-searchNode* moveRight(searchNode *, int );
-searchNode* moveLeft(searchNode *, int );
+searchNode* moveUp(searchNode *);
+searchNode* moveDown(searchNode * );
+searchNode* moveRight(searchNode * );
+searchNode* moveLeft(searchNode * );
 
 int isSolvable( char * );
 

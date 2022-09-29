@@ -11,6 +11,7 @@ searchNode * createNode( char * state, int cost, int openIndex, searchNode * par
     }
     newNode->state = state;
     newNode->cost = cost;
+    newNode->hcost = NULL;
     newNode->nextNode = NULL;
     newNode->open = openIndex;
     newNode->parent = parent;
@@ -62,7 +63,7 @@ searchNode * createInitialState( char * filename ) {
  * @param hueristicCost 
  * @return * Shift* 
  */
-searchNode * moveRight( searchNode * prev, int hueristicCost ) {
+searchNode * moveRight( searchNode * prev ) {
     char * newState = malloc(sizeof(char) * 10);
     newState = strcpy( newState, prev->state);
 
@@ -73,13 +74,13 @@ searchNode * moveRight( searchNode * prev, int hueristicCost ) {
     newState[prev->open] = newState[prev->open-1];
     newState[prev->open -1] = '_';
 
-    int cost = prev->cost + 1 + hueristicCost;
+    int cost = prev->cost + 1;
 
     return createNode(newState, cost, prev->open-1, prev);
 
 }
 
-searchNode * moveLeft( searchNode * prev, int hueristicCost) {
+searchNode * moveLeft( searchNode * prev) {
     char * newState = malloc(sizeof(char) * 10);
     newState = strcpy( newState, prev->state);
 
@@ -90,12 +91,12 @@ searchNode * moveLeft( searchNode * prev, int hueristicCost) {
     newState[prev->open] = newState[prev->open+1];
     newState[prev->open + 1] = '_';
 
-    int cost = prev->cost + 1 + hueristicCost;
+    int cost = prev->cost + 1;
 
     return createNode(newState, cost, prev->open+1, prev);
 }
 
-searchNode * moveUp( searchNode * prev, int hueristicCost) {
+searchNode * moveUp( searchNode * prev) {
     char * newState = malloc(sizeof(char) * 10);
     newState = strcpy( newState, prev->state);
 
@@ -106,12 +107,12 @@ searchNode * moveUp( searchNode * prev, int hueristicCost) {
     newState[prev->open] = newState[prev->open+3];
     newState[prev->open + 3] = '_';
 
-    int cost = prev->cost + 1 + hueristicCost;
+    int cost = prev->cost + 1;
 
     return createNode(newState, cost, prev->open+3, prev);
 }
 
-searchNode * moveDown( searchNode * prev, int hueristicCost) {
+searchNode * moveDown( searchNode * prev) {
     char * newState = malloc(sizeof(char) * 10);
     newState = strcpy( newState, prev->state);
 
@@ -122,7 +123,7 @@ searchNode * moveDown( searchNode * prev, int hueristicCost) {
     newState[prev->open] = newState[prev->open-3];
     newState[prev->open - 3] = '_';
 
-    int cost = prev->cost + 1 + hueristicCost;
+    int cost = prev->cost + 1;
 
     return createNode(newState, cost, prev->open-3, prev);
 }
@@ -193,7 +194,6 @@ char addToClosed( searchNode * node,  searchData * data) {
             currentNode = currentNode->right;
         } else {
             printf("failed in addToClosed");
-            exit(1);
             return 0;
         }
     }
@@ -226,23 +226,28 @@ char inFringeReplace(searchNode * node, searchData * data) {
     if( currentNode == NULL){
         return 0;
     }
-    if( strcmp(node->state, currentNode->state) == 0 && node->cost < currentNode->cost) {
+    if( strcmp(node->state, currentNode->state) == 0 && (node->cost + node->hcost) < (currentNode->cost + currentNode->hcost)) {
         data->fringe = currentNode->nextNode;
     }
     searchNode * prevNode = currentNode;
     currentNode = prevNode->nextNode;
     while( currentNode != NULL) {
-        if( strcmp(node->state, currentNode->state) == 0 && node->cost < currentNode->cost) {
-            prevNode->nextNode = currentNode->nextNode;
-            free(currentNode->state);
-            free(currentNode);
-            return 0;
-        } else if( strcmp(node->state, currentNode->state) == 0 && node->cost > currentNode->cost) {
-            return 1;
+        if( strcmp(node->state, currentNode->state) == 0) {
+            printf("found in fringe\n");
+            if((node->cost + node->hcost) < (currentNode->cost + currentNode->hcost)) {
+                printf("removing\n");
+                prevNode->nextNode = currentNode->nextNode;
+                free(currentNode->state);
+                free(currentNode);
+                return 0;
+            }else{
+                return 1;
+            }
         }
         prevNode = currentNode;
         currentNode = prevNode->nextNode;
     }
+    return 0;
 }
 
 searchNode * fringePop( searchData * data ) {
