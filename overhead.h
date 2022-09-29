@@ -47,7 +47,7 @@ char compareNodesNoCost(searchNode * one, searchNode* two);
 
 char compareNodesCost(searchNode * one, searchNode * two);
 
-searchNode * createNode(char *, int, int, searchNode *);
+searchNode * createNode(char *, int, int, searchNode *, char);
 
 searchNode * createInitialState( char * );
 

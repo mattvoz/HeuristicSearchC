@@ -53,7 +53,9 @@ int main(int argc, char ** argv) {
 
     if(strcmp(argv[2], "h1") == 0) {
         printf(" h1 search\n");
+        searchOverhead->startTime = time(NULL);
         solution = aStar( searchOverhead, &misplacedTile);
+        searchOverhead->endTime = time(NULL);
     }
 
     if(strcmp(argv[2], "h2") == 0) {
@@ -64,11 +66,11 @@ int main(int argc, char ** argv) {
         printf("no solution was found\n");
         exit(1);
     }
-    printf("final closed size %d\nfinal fringe size %d\nsolution depth %d\nend time %ld\nend time %ld\n", searchOverhead->closedSize, searchOverhead->fringeSize, solution->depth, searchOverhead->endTime, searchOverhead->startTime);
+    printf("time taken: %ld\n", searchOverhead->endTime = searchOverhead->startTime);
 
     while(solution->parent != NULL) {
-        printf("this is a state %s\n", solution->state);
+        printf("%c", solution->move);
         solution = solution->parent;
     }
-    printf("%s\n", solution->state);
+    printf("\n");
 }

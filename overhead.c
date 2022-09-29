@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-searchNode * createNode( char * state, int cost, int openIndex, searchNode * parent) {
+searchNode * createNode( char * state, int cost, int openIndex, searchNode * parent, char move) {
     searchNode * newNode = malloc(sizeof(searchNode));
     if( newNode == NULL ) {
         printf("failed to create node \n");
@@ -15,6 +15,7 @@ searchNode * createNode( char * state, int cost, int openIndex, searchNode * par
     newNode->nextNode = NULL;
     newNode->open = openIndex;
     newNode->parent = parent;
+    newNode->move = move;
     printf("parent depth %d\n", parent->depth);
     newNode->depth = parent->depth + 1;
 
@@ -77,7 +78,7 @@ searchNode * moveRight( searchNode * prev ) {
 
     int cost = prev->cost + 1;
 
-    return createNode(newState, cost, prev->open-1, prev);
+    return createNode(newState, cost, prev->open-1, prev, 'R');
 
 }
 
@@ -94,7 +95,7 @@ searchNode * moveLeft( searchNode * prev) {
 
     int cost = prev->cost + 1;
 
-    return createNode(newState, cost, prev->open+1, prev);
+    return createNode(newState, cost, prev->open+1, prev, 'L');
 }
 
 searchNode * moveUp( searchNode * prev) {
@@ -110,7 +111,7 @@ searchNode * moveUp( searchNode * prev) {
 
     int cost = prev->cost + 1;
 
-    return createNode(newState, cost, prev->open+3, prev);
+    return createNode(newState, cost, prev->open+3, prev, 'U');
 }
 
 searchNode * moveDown( searchNode * prev) {
@@ -126,7 +127,7 @@ searchNode * moveDown( searchNode * prev) {
 
     int cost = prev->cost + 1;
 
-    return createNode(newState, cost, prev->open-3, prev);
+    return createNode(newState, cost, prev->open-3, prev, 'D');
 }
 
 int isSolvable( char * string) {

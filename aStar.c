@@ -76,6 +76,7 @@ char addToAStarFringe(searchNode * node, searchData * data) {
             data->fringeSize += 1;
             return 1;
         }
+        prevNode = currentNode;
         currentNode = currentNode->nextNode;
     }
     prevNode->nextNode = node;
