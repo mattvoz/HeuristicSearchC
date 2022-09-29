@@ -2,10 +2,16 @@
 #include "dfs.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
-searchNode * depthFirstSearch( searchNode * currentNode, int maxDepth, int * nodeCount, startTime) {
+searchNode * depthFirstSearch( searchNode * currentNode, int maxDepth, int * nodeCount, time_t startTime) {
     // safety check :)
-    if( currentNode == NULL && ) {
+    if( currentNode == NULL) {
+        return NULL;
+    }
+    if(time(NULL)-startTime > 900){
+        free(currentNode->state);
+        free(currentNode);
         return NULL;
     }
     (*nodeCount)++;
@@ -18,10 +24,10 @@ searchNode * depthFirstSearch( searchNode * currentNode, int maxDepth, int * nod
         return NULL;
     }
 
-    searchNode * right = depthFirstSearch(moveRight(currentNode), maxDepth, nodeCount);
-    searchNode * left = depthFirstSearch(moveLeft(currentNode), maxDepth, nodeCount);
-    searchNode * up = depthFirstSearch(moveUp(currentNode),maxDepth,nodeCount);
-    searchNode * down = depthFirstSearch(moveDown(currentNode),maxDepth, nodeCount);
+    searchNode * right = depthFirstSearch(moveRight(currentNode), maxDepth, nodeCount, startTime);
+    searchNode * left = depthFirstSearch(moveLeft(currentNode), maxDepth, nodeCount, startTime);
+    searchNode * up = depthFirstSearch(moveUp(currentNode),maxDepth,nodeCount, startTime);
+    searchNode * down = depthFirstSearch(moveDown(currentNode),maxDepth, nodeCount, startTime);
 
     if(right != NULL) {
         return right;

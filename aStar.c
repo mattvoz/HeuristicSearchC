@@ -88,11 +88,306 @@ int manhattanValue( searchNode * node) {
     int cost = 0;
     for(char i = 0; i < 9; i ++) {
         char current = node->state[i];
-        if( current == '_') {
-            cost += abs( i - 8);
-        }
-        int intVal = atoi( & current);
-        cost += abs( i - intVal-1);
+            switch(current) {
+                case '_':
+                    switch(i) {
+                        case 0: 
+                            cost += 4;
+                            break;
+                        case 1:
+                            cost+=3;
+                            break;
+                        case 2:
+                            cost+=2;
+                            break;
+                        case 3:
+                            cost+=3;
+                            break;
+                        case 4:
+                            cost+=2;
+                            break;
+                        case 5:
+                            cost+=1;
+                            break;
+                        case 6:
+                            cost+=2;
+                            break;
+                        case 7:
+                            cost+=1;
+                            break;
+                        case 8:
+                            cost +=0;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case '1':
+                    switch(i) {
+                        case 0: 
+                            cost += 0;
+                            break;
+                        case 1:
+                            cost+=1;
+                            break;
+                        case 2:
+                            cost+=2;
+                            break;
+                        case 3:
+                            cost+=1;
+                            break;
+                        case 4:
+                            cost+=2;
+                            break;
+                        case 5:
+                            cost+=3;
+                            break;
+                        case 6:
+                            cost+=2;
+                            break;
+                        case 7:
+                            cost+=3;
+                            break;
+                        case 8:
+                            cost +=4;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case '2': 
+                    switch(i) {
+                        case 0: 
+                            cost += 1;
+                            break;
+                        case 1:
+                            cost+=0;
+                            break;
+                        case 2:
+                            cost+=1;
+                            break;
+                        case 3:
+                            cost+=2;
+                            break;
+                        case 4:
+                            cost+=1;
+                            break;
+                        case 5:
+                            cost+=2;
+                            break;
+                        case 6:
+                            cost+=3;
+                            break;
+                        case 7:
+                            cost+=2;
+                            break;
+                        case 8:
+                            cost +=3;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case '3':
+                    switch(i) {
+                        case 0: 
+                            cost += 2;
+                            break;
+                        case 1:
+                            cost+=1;
+                            break;
+                        case 2:
+                            cost+=0;
+                            break;
+                        case 3:
+                            cost+=3;
+                            break;
+                        case 4:
+                            cost+=2;
+                            break;
+                        case 5:
+                            cost+=1;
+                            break;
+                        case 6:
+                            cost+=4;
+                            break;
+                        case 7:
+                            cost+=3;
+                            break;
+                        case 8:
+                            cost +=2;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case '4':
+                    switch(i) {
+                        case 0: 
+                            cost += 1;
+                            break;
+                        case 1:
+                            cost+=2;
+                            break;
+                        case 2:
+                            cost+=3;
+                            break;
+                        case 3:
+                            cost+=0;
+                            break;
+                        case 4:
+                            cost+=1;
+                            break;
+                        case 5:
+                            cost+=2;
+                            break;
+                        case 6:
+                            cost+=1;
+                            break;
+                        case 7:
+                            cost+=2;
+                            break;
+                        case 8:
+                            cost +=3;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case '5':
+                    switch(i) {
+                        case 0: 
+                            cost += 2;
+                            break;
+                        case 1:
+                            cost+=1;
+                            break;
+                        case 2:
+                            cost+=2;
+                            break;
+                        case 3:
+                            cost+=1;
+                            break;
+                        case 4:
+                            cost+=0;
+                            break;
+                        case 5:
+                            cost+=1;
+                            break;
+                        case 6:
+                            cost+=2;
+                            break;
+                        case 7:
+                            cost+=1;
+                            break;
+                        case 8:
+                            cost +=2;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case '6':
+                    switch(i) {
+                        case 0: 
+                            cost += 3;
+                            break;
+                        case 1:
+                            cost+=2;
+                            break;
+                        case 2:
+                            cost+=1;
+                            break;
+                        case 3:
+                            cost+=2;
+                            break;
+                        case 4:
+                            cost+=1;
+                            break;
+                        case 5:
+                            cost+=0;
+                            break;
+                        case 6:
+                            cost+=3;
+                            break;
+                        case 7:
+                            cost+=2;
+                            break;
+                        case 8:
+                            cost +=1;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case '7':
+                    switch(i) {
+                        case 0: 
+                            cost += 2;
+                            break;
+                        case 1:
+                            cost+=3;
+                            break;
+                        case 2:
+                            cost+=4;
+                            break;
+                        case 3:
+                            cost+=1;
+                            break;
+                        case 4:
+                            cost+=2;
+                            break;
+                        case 5:
+                            cost+=3;
+                            break;
+                        case 6:
+                            cost+=0;
+                            break;
+                        case 7:
+                            cost+=1;
+                            break;
+                        case 8:
+                            cost +=2;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case '8':
+                    switch(i) {
+                        case 0: 
+                            cost += 3;
+                            break;
+                        case 1:
+                            cost+=2;
+                            break;
+                        case 2:
+                            cost+=3;
+                            break;
+                        case 3:
+                            cost+=2;
+                            break;
+                        case 4:
+                            cost+=1;
+                            break;
+                        case 5:
+                            cost+=2;
+                            break;
+                        case 6:
+                            cost+=1;
+                            break;
+                        case 7:
+                            cost+=0;
+                            break;
+                        case 8:
+                            cost +=1;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                
+            }
     }
     return cost;
 }
@@ -115,6 +410,9 @@ int misplacedTile( searchNode * node) {
     return cost;
 }
 
-int customHueristic(searchNode *) {
-
+int customHueristic(searchNode * node) {
+    int cost = 0;
+    for(int i =0; i < 9; i++) {
+        
+    }
 }

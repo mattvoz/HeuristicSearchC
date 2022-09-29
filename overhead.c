@@ -7,6 +7,7 @@ searchNode * createNode( char * state, int cost, int openIndex, searchNode * par
     searchNode * newNode = malloc(sizeof(searchNode));
     if( newNode == NULL ) {
         printf("failed to create node \n");
+        free(state);
         return NULL;
     }
     newNode->state = state;
@@ -16,7 +17,6 @@ searchNode * createNode( char * state, int cost, int openIndex, searchNode * par
     newNode->open = openIndex;
     newNode->parent = parent;
     newNode->move = move;
-    printf("parent depth %d\n", parent->depth);
     newNode->depth = parent->depth + 1;
 
     return newNode;
@@ -70,6 +70,7 @@ searchNode * moveRight( searchNode * prev ) {
     newState = strcpy( newState, prev->state);
 
     if( prev->open == 0 || prev->open == 3 || prev->open == 6) {
+        free(newState);
         return NULL;
     }
 
@@ -87,6 +88,7 @@ searchNode * moveLeft( searchNode * prev) {
     newState = strcpy( newState, prev->state);
 
     if( prev->open == 2 || prev->open == 5 || prev->open == 8) {
+        free(newState);
         return NULL;
     }
 
@@ -103,6 +105,7 @@ searchNode * moveUp( searchNode * prev) {
     newState = strcpy( newState, prev->state);
 
     if( prev->open == 6 || prev->open == 7 || prev->open == 8) {
+        free(newState);
         return NULL;
     }
 
@@ -119,6 +122,7 @@ searchNode * moveDown( searchNode * prev) {
     newState = strcpy( newState, prev->state);
 
     if( prev->open == 0 || prev->open == 1 || prev->open == 2) {
+        free(newState);
         return NULL;
     }
 

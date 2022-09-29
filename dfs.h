@@ -4,6 +4,6 @@
 
 #include "overhead.h"
 
-searchNode * depthFirstSearch(searchNode  * , int, int *);
+searchNode * depthFirstSearch(searchNode  * , int, int *, time_t);
 
 #endif

@@ -45,11 +45,12 @@ int main(int argc, char ** argv) {
         searchOverhead->startTime = time(NULL);
         for(int i = 1; i < 50; i++) {
             initial = createInitialState( argv[1] );
-            solution = depthFirstSearch( initial, i, &nodeCount);
+            solution = depthFirstSearch( initial, i, &nodeCount, searchOverhead->startTime);
             if(solution != NULL){
                 break;
             }
         }
+        searchOverhead->endTime = time(NULL);
         
         searchOverhead->closedSize = nodeCount;
     }
@@ -68,12 +69,22 @@ int main(int argc, char ** argv) {
         searchOverhead->endTime = time(NULL);
     }
 
+    if(strcmp(argv[2], "h3") == 0) {
+        printf("h3 search\n");
+        searchOverhead->startTime = time(NULL);
+        solution = aStar( searchOverhead, &customHueristic);
+        searchOverhead->endTime = time(NULL);
+    }
+
     if(solution == NULL) {
-        printf("no solution was found\n");
+        printf("Timeout\n");
         exit(1);
     }
     printf("time taken: %ld\n", searchOverhead->endTime - searchOverhead->startTime);
-    printf("nodes explored %d\n", searchOverhead->closedSize);
+    printf("nodes explored %d\n", searchOverhead->closedSize + searchOverhead->fringeSize);
+    printf("nodes in fringe %d\nNodes in closed %d\n", searchOverhead->fringeSize, searchOverhead->closedSize);
+    printf("depth %d\n", solution->depth);
+    printf("path: ");
 
     while(solution->parent != NULL) {
         printf("%c", solution->move);
