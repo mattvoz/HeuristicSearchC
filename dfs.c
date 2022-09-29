@@ -9,7 +9,6 @@ searchNode * depthFirstSearch( searchNode * currentNode, int maxDepth, int * nod
         return NULL;
     }
     (*nodeCount)++;
-    printf("explored %d nodes\n", *nodeCount);
     if(goalTest(currentNode)) {
         return currentNode;
     }

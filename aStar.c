@@ -6,20 +6,16 @@
 searchNode * aStar( searchData * initial, int (hueristic)( searchNode *)) {
      while( initial->fringe != NULL) {
         searchNode * current = fringePop(initial);
-        printf("current state is %s cost is %d hcost is %d\n", current->state, current->cost, current->hcost);
         if(current == NULL) {
             return NULL;
         }
 
-        printf("testing goal\n");
         if(goalTest(current) == 1) {
             return current;
         }
-        printf("adding to closed\n");
-        printf("in closed %d\n", inClosed(current ,initial));
+
         addToClosed( current, initial);
 
-        printf("making nodes\n");
         searchNode * right = moveRight(current);
         if( right != NULL) {
             right->hcost = hueristic(right);
@@ -40,8 +36,6 @@ searchNode * aStar( searchData * initial, int (hueristic)( searchNode *)) {
             down->hcost = hueristic(down);
         }
 
-        printf("nodes created\n");
-        printf("checking fringe \n");
         if(right != NULL && inClosed( right, initial) != 1 && inFringeReplace(right, initial) != 1) {
             addToAStarFringe(right,initial);
         }
@@ -54,7 +48,6 @@ searchNode * aStar( searchData * initial, int (hueristic)( searchNode *)) {
         if(down != NULL && inClosed(down, initial) != 1 && inFringeReplace(down, initial) != 1) {
             addToAStarFringe(down, initial);
         }
-        printf("finished addition\n");
     }
 }
 
@@ -69,6 +62,7 @@ char addToAStarFringe(searchNode * node, searchData * data) {
     if((node->cost + node->hcost) < (currentNode->cost + currentNode->hcost)) {
         data->fringe = node;
         node->nextNode = currentNode;
+        data->fringeSize += 1;
         return 1;
     }
 
@@ -79,11 +73,13 @@ char addToAStarFringe(searchNode * node, searchData * data) {
         if( (node->cost + node->hcost) < (currentNode->cost + currentNode->hcost)) {
             prevNode->nextNode = node;
             node->nextNode = currentNode;
+            data->fringeSize += 1;
             return 1;
         }
         currentNode = currentNode->nextNode;
     }
     prevNode->nextNode = node;
+    data->fringeSize += 1;
     return 1;
 }
 

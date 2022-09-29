@@ -15,6 +15,7 @@ searchNode * createNode( char * state, int cost, int openIndex, searchNode * par
     newNode->nextNode = NULL;
     newNode->open = openIndex;
     newNode->parent = parent;
+    printf("parent depth %d\n", parent->depth);
     newNode->depth = parent->depth + 1;
 
     return newNode;
@@ -193,7 +194,6 @@ char addToClosed( searchNode * node,  searchData * data) {
             }
             currentNode = currentNode->right;
         } else {
-            printf("failed in addToClosed");
             return 0;
         }
     }
@@ -221,7 +221,6 @@ char inFringe(searchNode * node, searchData * data) {
 }
 
 char inFringeReplace(searchNode * node, searchData * data) {
-    printf("checking fringe\n");
     searchNode * currentNode = data->fringe;
     if( currentNode == NULL){
         return 0;
@@ -233,9 +232,7 @@ char inFringeReplace(searchNode * node, searchData * data) {
     currentNode = prevNode->nextNode;
     while( currentNode != NULL) {
         if( strcmp(node->state, currentNode->state) == 0) {
-            printf("found in fringe\n");
             if((node->cost + node->hcost) < (currentNode->cost + currentNode->hcost)) {
-                printf("removing\n");
                 prevNode->nextNode = currentNode->nextNode;
                 free(currentNode->state);
                 free(currentNode);
