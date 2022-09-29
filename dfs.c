@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-searchNode * depthFirstSearch( searchNode * currentNode, int maxDepth, int * nodeCount) {
+searchNode * depthFirstSearch( searchNode * currentNode, int maxDepth, int * nodeCount, startTime) {
     // safety check :)
-    if( currentNode == NULL) {
+    if( currentNode == NULL && ) {
         return NULL;
     }
     (*nodeCount)++;

@@ -89,10 +89,10 @@ int manhattanValue( searchNode * node) {
     for(char i = 0; i < 9; i ++) {
         char current = node->state[i];
         if( current == '_') {
-            continue;
+            cost += abs( i - 8);
         }
         int intVal = atoi( & current);
-
+        cost += abs( i - intVal-1);
     }
     return cost;
 }
@@ -113,4 +113,8 @@ int misplacedTile( searchNode * node) {
             }
     }
     return cost;
+}
+
+int customHueristic(searchNode *) {
+
 }

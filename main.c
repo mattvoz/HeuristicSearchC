@@ -42,6 +42,7 @@ int main(int argc, char ** argv) {
 
     if(strcmp(argv[2], "IDFS") == 0) {
         int nodeCount;
+        searchOverhead->startTime = time(NULL);
         for(int i = 1; i < 50; i++) {
             initial = createInitialState( argv[1] );
             solution = depthFirstSearch( initial, i, &nodeCount);
@@ -49,6 +50,8 @@ int main(int argc, char ** argv) {
                 break;
             }
         }
+        
+        searchOverhead->closedSize = nodeCount;
     }
 
     if(strcmp(argv[2], "h1") == 0) {
@@ -59,14 +62,18 @@ int main(int argc, char ** argv) {
     }
 
     if(strcmp(argv[2], "h2") == 0) {
-        printf("h2 search");
+        printf("h2 search\n");
+        searchOverhead->startTime = time(NULL);
+        solution = aStar( searchOverhead, &manhattanValue);
+        searchOverhead->endTime = time(NULL);
     }
 
     if(solution == NULL) {
         printf("no solution was found\n");
         exit(1);
     }
-    printf("time taken: %ld\n", searchOverhead->endTime = searchOverhead->startTime);
+    printf("time taken: %ld\n", searchOverhead->endTime - searchOverhead->startTime);
+    printf("nodes explored %d\n", searchOverhead->closedSize);
 
     while(solution->parent != NULL) {
         printf("%c", solution->move);
