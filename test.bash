@@ -1,0 +1,21 @@
+./search.exe ./part3/L24/131248.txt IDFS
+./search.exe ./part3/L24/131256.txt IDFS
+./search.exe ./part3/L24/131264.txt IDFS
+./search.exe ./part3/L24/131271.txt IDFS
+./search.exe ./part3/L24/131274.txt IDFS
+./search.exe ./part3/L24/131279.txt IDFS
+./search.exe ./part3/L24/131286.txt IDFS
+./search.exe ./part3/L24/131304.txt IDFS
+./search.exe ./part3/L24/131311.txt IDFS
+./search.exe ./part3/L24/131324.txt IDFS
+./search.exe ./part3/L24/131345.txt IDFS
+./search.exe ./part3/L24/131370.txt IDFS
+./search.exe ./part3/L24/131374.txt IDFS
+./search.exe ./part3/L24/131378.txt IDFS
+./search.exe ./part3/L24/131394.txt IDFS
+./search.exe ./part3/L24/131400.txt IDFS
+./search.exe ./part3/L24/131406.txt IDFS
+./search.exe ./part3/L24/131425.txt IDFS
+./search.exe ./part3/L24/131449.txt IDFS
+./search.exe ./part3/L24/131455.txt IDFS
+

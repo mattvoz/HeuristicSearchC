@@ -1,0 +1,160 @@
+s1.txt
+BFS
+time taken: 33
+nodes explored 139891
+nodes in fringe 24027
+Nodes in closed 115864
+depth 24
+path: DDLUULDRRULLDRRDLLURRULL
+
+IDFS
+Timeout
+
+h1 search
+time taken: 1
+nodes explored 27461
+nodes in fringe 8848
+Nodes in closed 18613
+depth 24
+path: DDLUULDRRULLDRRDLLURRULL
+
+h2 search
+time taken: 1       
+nodes explored 4170 
+nodes in fringe 1550
+Nodes in closed 2620
+depth 24
+path: DDLUULDRRULLDRRDLLURRULL
+
+h3 search
+time taken: 0
+nodes explored 11242
+nodes in fringe 4051
+Nodes in closed 7191
+depth 24
+path: DDLUULDRRULLDRRDLLURRULL
+
+
+
+
+S2.TXT
+BFS
+time taken: 5
+nodes explored 52854
+nodes in fringe 16345
+Nodes in closed 36509
+depth 20
+path: DDLLURULDRRDLLURRULL
+
+IDFS
+time taken: 245
+nodes explored 1884526462
+nodes in fringe 0
+Nodes in closed 1884526462
+depth 20
+path: DDLLURULDRRDLLURRULL
+
+h1 search
+time taken: 0
+nodes explored 4633
+nodes in fringe 1669
+Nodes in closed 2964
+depth 20
+path: DDLLURULDRRDLLURRULL
+
+h2 search
+time taken: 0
+nodes explored 368
+nodes in fringe 140
+Nodes in closed 228
+depth 20
+path: DDLLURULDRRDLLURRULL
+
+h3 search
+time taken: 0
+nodes explored 1403
+nodes in fringe 528
+Nodes in closed 875
+depth 20
+path: DDLLURULDRRDLLURRULL
+
+
+S3.txt 
+Puzzle is not solvable
+
+S4.txt
+
+BFS
+time taken: 45
+nodes explored 181438
+nodes in fringe 39
+Nodes in closed 181399
+depth 31
+path: RDLULDRDLURRULLDRDRUULDDRUULDLU
+
+
+ h1 search
+time taken: 50
+nodes explored 163199
+nodes in fringe 18165
+Nodes in closed 145034
+depth 31
+path: LDDRRUULLDRRULLDRDLURDRUULLDRUL
+
+h2 search
+time taken: 2
+nodes explored 31138
+nodes in fringe 10915
+Nodes in closed 20223
+depth 31
+path: LDDRUULDDRURULDRDLUULDDRURULDLU
+
+h3 search
+time taken: 20
+nodes explored 89389
+nodes in fringe 24838
+Nodes in closed 64551
+depth 31
+path: LDDRRUULLDRRULLDRDLURDRUULLDRUL
+
+S5.txt
+
+BFS
+time taken: 0
+nodes explored 83
+nodes in fringe 38
+Nodes in closed 45
+depth 6
+path: RDLUUL
+
+IDFS
+time taken: 0
+nodes explored 1786
+nodes in fringe 0
+Nodes in closed 1786
+depth 6
+path: RDLUUL
+
+h1 search
+time taken: 0
+nodes explored 18
+nodes in fringe 9
+Nodes in closed 9
+depth 6
+path: RDLUUL
+
+h2 search
+time taken: 0
+nodes explored 22
+nodes in fringe 10
+Nodes in closed 12
+depth 6
+path: RDLUUL
+
+h3 search
+time taken: 0
+nodes explored 23
+nodes in fringe 11
+Nodes in closed 12
+depth 6
+path: RDLUUL

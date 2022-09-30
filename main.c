@@ -86,9 +86,13 @@ int main(int argc, char ** argv) {
     printf("depth %d\n", solution->depth);
     printf("path: ");
 
+    char * string = malloc(sizeof(solution->depth) + 1);
+    string[solution->depth] = '\0';
+    int index = solution->depth -1;
     while(solution->parent != NULL) {
-        printf("%c", solution->move);
+        string[index] = solution->move;
         solution = solution->parent;
+        index--;
     }
-    printf("\n");
+    printf("%s\n", string);
 }
